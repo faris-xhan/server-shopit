@@ -34,6 +34,7 @@ router.get('/:productId', async (req, res, next) => {
   try {
     const { productId } = req.params;
     const product = await Product.find({ _id: productId });
+    if (!product.length) throw new Error("Product doens't exists");
     return res.json({
       status: 'success',
       data: product,
