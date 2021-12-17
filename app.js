@@ -2,10 +2,11 @@ const path = require('path');
 const logger = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
+const config = require('./config/config');
 const cookieParser = require('cookie-parser');
 
 const indexRouter = require('./routes/index');
-const config = require('./config/config');
+const productRouter = require('./routes/product');
 
 /**  Connecting MongoDB. **/
 mongoose.connect(config.mongodb, (error) => {
@@ -21,5 +22,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/product', productRouter);
 
 module.exports = app;
