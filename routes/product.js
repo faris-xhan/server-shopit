@@ -64,4 +64,19 @@ router.put('/:productId', async (req, res, next) => {
   }
 });
 
+router.delete('/:productId', async (req, res, next) => {
+  const { productId } = req.params;
+  try {
+    const status = await Product.findByIdAndRemove({ _id: productId });
+    return res.json({
+      status: 'success',
+      data: status,
+      error: '',
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 module.exports = router;
