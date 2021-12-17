@@ -45,4 +45,23 @@ router.get('/:productId', async (req, res, next) => {
   }
 });
 
+router.put('/:productId', async (req, res, next) => {
+  const { productId } = req.params;
+  try {
+    const product = await Product.findOneAndUpdate(
+      { _id: productId },
+      req.body
+    );
+
+    return res.json({
+      status: 'success',
+      data: product._id,
+      error: '',
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 module.exports = router;
