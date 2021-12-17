@@ -30,4 +30,19 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+router.get('/:productId', async (req, res, next) => {
+  try {
+    const { productId } = req.params;
+    const product = await Product.find({ _id: productId });
+    return res.json({
+      status: 'success',
+      data: product,
+      error: '',
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 module.exports = router;
