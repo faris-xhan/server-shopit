@@ -1,4 +1,5 @@
 const path = require('path');
+const cors = require('cors');
 const logger = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -15,6 +16,7 @@ mongoose.connect(config.mongodb, (error) => {
 
 const app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
